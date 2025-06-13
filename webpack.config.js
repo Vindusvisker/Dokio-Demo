@@ -8,7 +8,7 @@ module.exports = (env, argv) => {
   return {
     entry: './src/index.tsx',
     output: {
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, 'build'),
       filename: 'static/js/[name].[contenthash].js',
       chunkFilename: 'static/js/[name].[contenthash].chunk.js',
       assetModuleFilename: 'static/media/[name].[hash][ext]',
