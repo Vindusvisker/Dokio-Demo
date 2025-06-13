@@ -82,7 +82,7 @@ const StarButton: React.FC = () => {
           />
         </span>
         <span className="bg-gradient-to-b ml-1.5 from-white to-white/60 bg-clip-text text-xs text-transparent group-hover:scale-105 transition transform-gpu">
-          Star Marcus Ruud on Github
+          Star the Repo on Github
         </span>
       </span>
     </button>

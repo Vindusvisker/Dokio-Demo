@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronDown, Palette, Settings } from 'lucide-react';
 import Navigation from './components/Navigation';
 import StarButton from './components/StarButton';
+import DownloadButton from './components/DownloadButton';
 import ThemeGallery from './components/ThemeGallery';
 import SettingsDialog from './components/SettingsDialog';
 import OnboardingDialog from './components/OnboardingDialog';
@@ -469,15 +470,10 @@ export default function App() {
             </div>
           </div>
           
-          {/* Settings Button - Top Left */}
-          <div className="fixed top-6 left-6 z-20">
-            <button
-              onClick={() => setIsSettingsOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-black/20 hover:bg-black/30 rounded-xl transition-all duration-200 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:scale-105 group"
-            >
-              <Settings className="w-5 h-5 text-white/70 group-hover:text-white/90 transition-colors" />
-              <span className="text-sm text-white/80 group-hover:text-white/90 font-medium transition-colors">Settings</span>
-            </button>
+          {/* Action Buttons - Top Left */}
+          <div className="fixed top-6 left-6 z-20 flex flex-col gap-3">
+            <DownloadButton />
+            <StarButton />
           </div>
 
           {/* Theme Gallery Button - Top Right */}
@@ -516,9 +512,15 @@ export default function App() {
             onComplete={handleOnboardingComplete}
           />
           
-          {/* Star Button - Fixed at bottom left */}
+          {/* Settings Button - Bottom Left */}
           <div className="fixed bottom-6 left-6 z-20">
-            <StarButton />
+            <button
+              onClick={() => setIsSettingsOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-black/20 hover:bg-black/30 rounded-xl transition-all duration-200 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:scale-105 group"
+            >
+              <Settings className="w-5 h-5 text-white/70 group-hover:text-white/90 transition-colors" />
+              <span className="text-sm text-white/80 group-hover:text-white/90 font-medium transition-colors">Settings</span>
+            </button>
           </div>
         </div>
       )}
