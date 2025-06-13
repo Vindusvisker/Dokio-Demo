@@ -1,0 +1,488 @@
+.mood-slider {
+  width: 100%;
+  height: 12px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0.25) 50%, 
+    rgba(255, 255, 255, 0.15) 100%);
+  border-radius: 9999px;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.mood-slider:hover {
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.2) 0%, 
+    rgba(255, 255, 255, 0.35) 50%, 
+    rgba(255, 255, 255, 0.2) 100%);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+}
+
+.mood-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(255, 255, 255, 0.85) 100%);
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.mood-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15) translateY(-2px);
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 1) 0%, 
+    rgba(255, 255, 255, 0.9) 100%);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.mood-slider::-webkit-slider-thumb:active {
+  transform: scale(1.05) translateY(-1px);
+  transition: all 0.05s cubic-bezier(0.4, 0.0, 0.2, 1);
+  box-shadow: 
+    0 2px 15px rgba(0, 0, 0, 0.2),
+    0 1px 6px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Firefox Styles */
+.mood-slider::-moz-range-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(255, 255, 255, 0.85) 100%);
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.mood-slider::-moz-range-track {
+  height: 12px;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0.25) 50%, 
+    rgba(255, 255, 255, 0.15) 100%);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Smooth value transition animation */
+.mood-slider-container {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.mood-slider-container.animating {
+  transform: scale(1.02);
+}
+
+/* iOS-style slide transitions */
+.mood-step {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.mood-step.current {
+  transform: translateX(0);
+}
+
+.mood-step.previous {
+  transform: translateX(-100%);
+}
+
+.mood-step.next {
+  transform: translateX(100%);
+}
+
+.mood-step.sliding-out-left {
+  transform: translateX(-100%);
+}
+
+.mood-step.sliding-in-left {
+  transform: translateX(0);
+}
+
+.mood-step.sliding-out-right {
+  transform: translateX(100%);
+}
+
+.mood-step.sliding-in-right {
+  transform: translateX(0);
+}
+
+/* Container for slide transitions */
+.mood-steps-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Blob animations - Apple Health style - Subtle and zen */
+@keyframes organic-breathe {
+  0%, 100% { 
+    transform: scale(1) rotate(0deg); 
+  }
+  50% { 
+    transform: scale(1.005) rotate(0.1deg); 
+  }
+}
+
+@keyframes organic-float {
+  0%, 100% { 
+    transform: translateY(0px) scale(1); 
+  }
+  50% { 
+    transform: translateY(-0.5px) scale(1.002); 
+  }
+}
+
+@keyframes organic-glow-pulse {
+  0%, 100% { 
+    opacity: 0.15;
+    filter: blur(8px);
+  }
+  50% { 
+    opacity: 0.18;
+    filter: blur(7px);
+  }
+}
+
+@keyframes organic-layer-drift {
+  0% { 
+    transform: rotate(0deg) scale(1); 
+  }
+  100% { 
+    transform: rotate(0.3deg) scale(1.002); 
+  }
+}
+
+@keyframes petal-sway {
+  0%, 100% { 
+    transform: rotate(0deg); 
+  }
+  50% { 
+    transform: rotate(0.1deg); 
+  }
+}
+
+/* Apply organic animations to blob elements - Much slower and subtler */
+.mood-blob-main {
+  animation: organic-breathe 12s ease-in-out infinite;
+}
+
+.mood-blob-glow {
+  animation: organic-glow-pulse 8s ease-in-out infinite;
+}
+
+.mood-blob-float {
+  animation: organic-float 15s ease-in-out infinite;
+}
+
+.mood-blob-layer1 {
+  animation: organic-layer-drift 25s ease-in-out infinite alternate;
+}
+
+.mood-blob-layer2 {
+  animation: organic-layer-drift 30s ease-in-out infinite alternate-reverse;
+}
+
+.mood-blob-petals {
+  animation: petal-sway 20s ease-in-out infinite;
+}
+
+/* Organic morphing transition for Apple Health feel */
+.mood-blob-morphing {
+  transition: d 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Very subtle pulse for pleasant moods */
+@keyframes pleasant-pulse {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 0.85;
+  }
+  50% { 
+    transform: scale(1.008); 
+    opacity: 0.9;
+  }
+}
+
+.mood-blob-pleasant {
+  animation: pleasant-pulse 8s ease-in-out infinite;
+}
+
+/* Extremely gentle shimmer effect for very pleasant states */
+@keyframes gentle-shimmer {
+  0% { 
+    filter: brightness(1) saturate(1);
+  }
+  50% { 
+    filter: brightness(1.03) saturate(1.02);
+  }
+  100% { 
+    filter: brightness(1) saturate(1);
+  }
+}
+
+.mood-blob-shimmer {
+  animation: gentle-shimmer 6s ease-in-out infinite;
+}
+
+/* Subtle rotation for star patterns */
+@keyframes star-rotate {
+  0% { 
+    transform: rotate(0deg); 
+  }
+  100% { 
+    transform: rotate(360deg); 
+  }
+}
+
+.mood-blob-star {
+  animation: star-rotate 20s linear infinite;
+  transform-origin: center;
+}
+
+/* Organic blob pulse */
+@keyframes organic-pulse {
+  0%, 100% { 
+    transform: scale(1); 
+  }
+  50% { 
+    transform: scale(1.05); 
+  }
+}
+
+.mood-blob-organic {
+  animation: organic-pulse 5s ease-in-out infinite;
+} 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: #313131;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #313131;
+    overflow-x: hidden;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  @keyframes border-glow-translate {
+    0%, 100% { 
+      transform: translateX(-50%) translateY(-50%) rotate(0deg); 
+    }
+    50% { 
+      transform: translateX(50%) translateY(50%) rotate(180deg); 
+    }
+  }
+  
+  @keyframes border-glow-scale {
+    0%, 100% { 
+      transform: translateX(-50%) scale(1); 
+    }
+    50% { 
+      transform: translateX(-50%) scale(1.2); 
+    }
+  }
+  
+  @keyframes star-rotate {
+    0% { 
+      transform: rotate(0deg); 
+    }
+    100% { 
+      transform: rotate(360deg); 
+    }
+  }
+  
+  @keyframes star-shine {
+    0%, 100% { 
+      opacity: 0; 
+    }
+    50% { 
+      opacity: 0.3; 
+    }
+  }
+  
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-in-left {
+    0% {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    0% {
+      opacity: 0;
+      transform: translateX(60px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes fade-in-scale {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes bounce-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.3) translateY(-50px);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05) translateY(0);
+    }
+    70% {
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes smooth-fade-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes ios-slide-up {
+    0% {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes gentle-fade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  .animate-border-glow-translate {
+    animation: border-glow-translate 10s ease-in-out infinite alternate;
+  }
+  
+  .animate-border-glow-scale {
+    animation: border-glow-scale 10s ease-in-out infinite alternate;
+  }
+  
+  .animate-star-rotate {
+    animation: star-rotate 14s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite alternate;
+  }
+  
+  .animate-star-shine {
+    animation: star-shine 14s ease-in-out infinite alternate;
+  }
+  
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .animate-fade-in-scale {
+    animation: fade-in-scale 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .animate-bounce-in {
+    animation: bounce-in 1.2s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  }
+
+  .animate-smooth-fade-up {
+    animation: smooth-fade-up 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .animate-ios-slide-up {
+    animation: ios-slide-up 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .animate-gentle-fade {
+    animation: gentle-fade 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+} 
