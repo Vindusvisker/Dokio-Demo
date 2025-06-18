@@ -2,7 +2,7 @@ import React from 'react';
 
 const DownloadButton: React.FC = () => {
   const handleClick = () => {
-    window.open('https://drive.google.com/file/d/1dcn208ccfm4Nb7_sRCt9flqJZFIDhGRl/view?usp=sharing', '_blank');
+    window.open('https://drive.google.com/drive/folders/1Rz99qe9kQYexWEs723D75D7FAmLAPSdA?usp=sharing', '_blank');
   };
 
   return (
