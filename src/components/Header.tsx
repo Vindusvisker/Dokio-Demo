@@ -94,7 +94,7 @@ const Header: React.FC<HeaderProps> = ({
       {/* Main Header Container */}
       <div className="w-full px-6 py-4 flex items-center justify-between">
         {/* Left Side */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5">
           <StarButton />
           <DownloadButton />
         </div>

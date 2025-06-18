@@ -30,7 +30,7 @@ const StarButton: React.FC = () => {
         />
       </span>
 
-      <span className="flex items-center justify-center gap-2 relative z-[1] bg-black/60 backdrop-blur-md rounded-xl py-2 px-4 w-full border border-white/5">
+      <span className="flex items-center justify-center gap-2 relative z-[1] bg-black/60 backdrop-blur-md rounded-xl py-1.5 px-3 w-full border border-white/5">
         <span className="relative group-hover:scale-105 transition-transform group-hover:rotate-[360deg] duration-500">
           <svg
             width="16"
