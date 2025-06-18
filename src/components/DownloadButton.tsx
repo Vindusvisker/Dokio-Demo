@@ -8,9 +8,9 @@ const DownloadButton: React.FC = () => {
   return (
     <button
       onClick={handleClick}
-      className="group relative bg-black/20 backdrop-blur-xl border border-white/10 rounded-full p-px overflow-hidden shadow-2xl"
+      className="group relative bg-black/20 backdrop-blur-xl border border-white/10 rounded-xl p-px overflow-hidden shadow-2xl"
     >
-      <span className="absolute inset-0 rounded-full overflow-hidden">
+      <span className="absolute inset-0 rounded-xl overflow-hidden">
         <span className="inset-0 absolute pointer-events-none select-none">
           <span
             className="block -translate-x-1/2 -translate-y-1/3 size-24 blur-xl"
@@ -23,18 +23,18 @@ const DownloadButton: React.FC = () => {
 
       <span className="inset-0 absolute pointer-events-none select-none animate-border-glow-translate">
         <span
-          className="block z-0 h-full w-12 blur-xl -translate-x-1/2 rounded-full animate-border-glow-scale"
+          className="block z-0 h-full w-12 blur-xl -translate-x-1/2 rounded-xl animate-border-glow-scale"
           style={{
             background: 'linear-gradient(135deg, rgb(34, 197, 94), rgb(16, 185, 129), rgb(5, 150, 105))'
           }}
         />
       </span>
 
-      <span className="flex items-center justify-center gap-1 relative z-[1] bg-black/60 backdrop-blur-md rounded-full py-2 px-4 pl-2 w-full border border-white/5">
+      <span className="flex items-center justify-center gap-2 relative z-[1] bg-black/60 backdrop-blur-md rounded-xl py-2 px-4 w-full border border-white/5">
         <span className="relative group-hover:scale-105 transition-transform group-hover:rotate-[360deg] duration-500">
           <svg
-            width="18"
-            height="18"
+            width="16"
+            height="16"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -107,8 +107,8 @@ const DownloadButton: React.FC = () => {
             }}
           />
         </span>
-        <span className="bg-gradient-to-b ml-1.5 from-white to-white/60 bg-clip-text text-xs text-transparent group-hover:scale-105 transition transform-gpu">
-          Download Extension Files
+        <span className="bg-gradient-to-b from-white to-white/60 bg-clip-text text-sm font-medium text-transparent group-hover:scale-105 transition transform-gpu">
+          Free Download
         </span>
       </span>
     </button>

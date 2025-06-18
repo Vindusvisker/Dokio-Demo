@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronDown, Palette, Settings } from 'lucide-react';
-import Navigation from './components/Navigation';
-import StarButton from './components/StarButton';
-import DownloadButton from './components/DownloadButton';
+import Header from './components/Header';
 import ThemeGallery from './components/ThemeGallery';
 import SettingsDialog from './components/SettingsDialog';
 import OnboardingDialog from './components/OnboardingDialog';
@@ -354,6 +352,20 @@ export default function App() {
     }
   };
 
+  // Apply theme to body element for full scrollable background coverage
+  useEffect(() => {
+    if (currentTheme) {
+      document.body.style.backgroundColor = currentTheme.backgroundColor;
+      document.body.style.transition = 'background-color 0.7s ease-out';
+    }
+    
+    return () => {
+      // Cleanup when component unmounts
+      document.body.style.backgroundColor = '';
+      document.body.style.transition = '';
+    };
+  }, [currentTheme]);
+
   return (
     <>
       {/* Add custom zoom-in animation */}
@@ -380,26 +392,25 @@ export default function App() {
       ) : (
         <div 
           key={currentTheme.id}
-          className="fixed inset-0 overflow-auto transition-all duration-700 ease-out" 
+          className="min-h-screen relative transition-all duration-700 ease-out" 
           style={{ 
-            backgroundColor: currentTheme.backgroundColor,
             animation: 'zoomIn 0.6s ease-out',
             transform: 'scale(1)',
             opacity: 1
           }}
         >
-          {/* Gradient spots */}
+          {/* Gradient spots - Fixed to viewport for consistent positioning */}
           {currentTheme.gradientSpots.length > 0 && (
-            <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
               {currentTheme.gradientSpots.map((spotClasses, index) => (
                 <div key={`${currentTheme.id}-spot-${index}`} className={spotClasses} />
               ))}
             </div>
           )}
 
-          {/* Grain texture / Stars / Hex Grid */}
+          {/* Grain texture / Stars / Hex Grid - Fixed to viewport */}
           <div 
-            className="absolute inset-0 pointer-events-none z-1"
+            className="fixed inset-0 pointer-events-none z-1"
             style={{
               opacity: currentTheme.grainOpacity / 100,
               backgroundImage: currentTheme.id === 'space' ? 
@@ -456,36 +467,19 @@ export default function App() {
             }}
           />
           
+          {/* Header with all navigation and buttons */}
+          <Header
+            currentView={currentView}
+            onViewChange={setCurrentView}
+            currentTheme={currentTheme}
+            onSettingsClick={() => setIsSettingsOpen(true)}
+            onThemeGalleryClick={() => setIsThemeGalleryOpen(true)}
+            userConfig={userConfig}
+          />
+          
           {/* Content layer */}
           <div className="relative z-10">
-            <Navigation currentView={currentView} onViewChange={setCurrentView} currentTheme={currentTheme} />
             {renderView()}
-          </div>
-          
-          {/* Demo Mode Indicator - Top Right */}
-          <div className="fixed top-20 right-6 z-30">
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-indigo-500/20 rounded-full backdrop-blur-xl border border-white/20 shadow-lg">
-              <div className="w-1.5 h-1.5 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full animate-pulse"></div>
-              <span className="text-xs font-medium text-white/90">🎬 Demo Mode</span>
-            </div>
-          </div>
-          
-          {/* Action Buttons - Top Left */}
-          <div className="fixed top-6 left-6 z-20 flex flex-col gap-3">
-            <DownloadButton />
-            <StarButton />
-          </div>
-
-          {/* Theme Gallery Button - Top Right */}
-          <div className="fixed top-6 right-6 z-20">
-            <button
-              onClick={() => setIsThemeGalleryOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-black/20 hover:bg-black/30 rounded-xl transition-all duration-200 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:scale-105 group"
-            >
-              <Palette className="w-5 h-5 text-white/70 group-hover:text-white/90 transition-colors" />
-              <span className="text-sm text-white/80 group-hover:text-white/90 font-medium transition-colors">{currentTheme.name}</span>
-              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 animate-pulse" />
-            </button>
           </div>
 
           {/* Theme Gallery Modal */}
@@ -511,17 +505,6 @@ export default function App() {
             onClose={() => setIsOnboardingOpen(false)}
             onComplete={handleOnboardingComplete}
           />
-          
-          {/* Settings Button - Bottom Left */}
-          <div className="fixed bottom-6 left-6 z-20">
-            <button
-              onClick={() => setIsSettingsOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-black/20 hover:bg-black/30 rounded-xl transition-all duration-200 backdrop-blur-sm border border-white/10 hover:border-white/20 hover:scale-105 group"
-            >
-              <Settings className="w-5 h-5 text-white/70 group-hover:text-white/90 transition-colors" />
-              <span className="text-sm text-white/80 group-hover:text-white/90 font-medium transition-colors">Settings</span>
-            </button>
-          </div>
         </div>
       )}
     </>

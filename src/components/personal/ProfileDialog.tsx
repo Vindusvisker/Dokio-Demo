@@ -337,9 +337,9 @@ export default function ProfileDialog({ isOpen, onClose, profileData }: ProfileD
       <DialogContent className="max-w-6xl bg-gradient-to-br from-black/95 via-gray-900/95 to-black/95 backdrop-blur-xl border-2 border-purple-500/30 text-white rounded-3xl p-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-blue-500/5 to-cyan-500/5" />
         
-        <div className="flex h-[85vh] relative">
+        <div className="flex max-h-[85vh] overflow-hidden relative">
           {/* Left Panel - Current Status & Next Level Focus */}
-          <div className="flex-1 p-8 border-r border-white/10">
+          <div className="flex-1 p-8 border-r border-white/10 overflow-y-auto">
             <DialogHeader className="mb-8">
               <DialogTitle className="text-3xl font-bold text-white flex items-center space-x-4">
                 <div className={`w-16 h-16 bg-gradient-to-br ${currentTier.bgColor} rounded-full flex items-center justify-center shadow-2xl border-2 border-white/30`}>
@@ -534,7 +534,7 @@ export default function ProfileDialog({ isOpen, onClose, profileData }: ProfileD
           </div>
 
           {/* Right Panel - Tier Progression & Rewards */}
-          <div className="flex-1 p-8">
+          <div className="flex-1 p-8 overflow-y-auto">
             <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
               <Crown className="h-6 w-6 mr-3 text-yellow-400" />
               Tier Progression

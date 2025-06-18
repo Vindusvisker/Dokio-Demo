@@ -4,7 +4,6 @@ import ActiveMissions from '@/components/personal/ActiveMissions';
 import JourneyHeatmap from '@/components/personal/JourneyHeatmap';
 import AchievementWall from '@/components/personal/AchievementWall';
 import WeeklyReflection from '@/components/personal/WeeklyReflection';
-import PersonalHelp from '@/components/PersonalHelp';
 import { UserConfig } from '../types/UserConfig'
 
 interface PersonalViewProps {
@@ -13,13 +12,8 @@ interface PersonalViewProps {
 
 const PersonalView: React.FC<PersonalViewProps> = ({ userConfig }) => {
   return (
-    <div className="h-screen pt-28 pb-16 overflow-hidden relative">
+    <div className="min-h-screen pt-28 pb-16 overflow-auto relative">
       <div className="container mx-auto px-6 max-w-7xl h-full flex flex-col">
-        
-        {/* Help Button - Bottom right corner */}
-        <div className="fixed bottom-6 right-6 z-20">
-          <PersonalHelp />
-        </div>
         
         {/* Top Row - Profile Header + Active Missions */}
         <div className="mb-6 flex-shrink-0">
